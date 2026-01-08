@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  
+</body>
+		
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Prediction Game 🎯</title>
+<style>
+body { font-family: Arial; text-align:center; background:#f0f0f0; padding:15px; }
+h1 { color:#333; }
+#game { margin-top:20px; }
+.box { display:inline-block; width:80px; height:80px; margin:10px; border-radius:10px; cursor:pointer; line-height:80px; font-size:20px; color:#fff; transition:0.2s; }
+.box:hover { transform:scale(1.1); }
+#result { margin-top:15px; font-size:18px; font-weight:bold; }
+#score, #level { margin-top:10px; font-size:16px; color:#555; }
+button { margin-top:15px; padding:10px 20px; font-size:16px; cursor:pointer; }
+.affiliate { margin-top:15px; font-size:16px; }
+#leaderboard { margin-top:20px; font-size:14px; color:#333; }
+</style>
+</head>
+<body>
+
+<h1>Advanced Prediction Game 🎯</h1>
+<p>Guess the correct number or colour and earn points!</p>
+
+<!-- AdSense Placeholder -->
+<div style="margin:15px 0;">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXX"
+       data-ad-slot="YYYYYYYYYY"
+       data-ad-format="auto"></ins>
+</div>
+
+<div id="game"></div>
+<div id="result"></div>
+<div id="score">Score: 0</div>
+<div id="level">Level: 1</div>
+
+<!-- Affiliate Links -->
+<div class="affiliate">
+  <a href="AFFILIATE_LINK" target="_blank">Buy Gaming Accessories 🎮</a>
+</div>
+
+<button onclick="startGame()">Restart Game</button>
+
+<div id="leaderboard">
+  <strong>Leaderboard (Session):</strong>
+  <ul id="board"></ul>
+</div>
+
+<script>
+let score = 0;
+let level = 1;
+let sessionLeaderboard = [];
+let colors = ["red","green","blue","yellow","orange","purple"];
+
+function randomColor() { return colors[Math.floor(Math.random()*colors.length)]; }
+function randomNumber() { return Math.floor(Math.random()*9)+1; }
+
+function updateLeaderboard(name, points){
+  sessionLeaderboard.push({name:name, score:points});
+  sessionLeaderboard.sort((a,b)=>b.score-a.score);
+  let list = document.getElementById("board");
+  list.innerHTML = "";
+  sessionLeaderboard.slice(0,5).forEach(item=>{
+    let li = document.createElement("li");
+    li.innerText = item.name + ": " + item.score;
+    list.appendChild(li);
+  });
+}
+
+function startGame(){
+  document.getElementById("result").innerText="";
+  document.getElementById("score").innerText="Score: "+score;
+  document.getElementById("level").innerText="Level: "+level;
+  
+  let gameType = Math.random()<0.5 ? "color" : "number";
+  let boxesDiv = document.getElementById("game");
+  boxesDiv.innerHTML = "";
+
+  let boxCount = level + 2; // increase difficulty with level
+
+  if(gameType==="color"){
+    let correctColor = randomColor();
+    let boxColors = [];
+    while(boxColors.length<boxCount){
+      let c = randomColor();
+      if(!boxColors.includes(c)) boxColors.push(c);
+    }
+    let correctIndex = Math.floor(Math.random()*boxCount);
+    boxColors[correctIndex] = correctColor;
+
+    boxColors.forEach(c=>{
+      let div = document.createElement("div");
+      div.className="box";
+      div.style.background=c;
+      div.onclick = function(){
+        if(c===correctColor){
+          document.getElementById("result").innerText="Correct! 🎉";
+          score += 10 * level;
+          level++;
+        }else{
+          document.getElementById("result").innerText="Wrong! ❌";
+          score = score>0?score-5:0;
+        }
+        updateLeaderboard("Player",score);
+        startGame();
+      }
+      boxesDiv.appendChild(div);
+    });
+
+  } else {
+    let correctNumber = randomNumber();
+    let nums = [];
+    while(nums.length<boxCount){
+      let n = randomNumber();
+      if(!nums.includes(n)) nums.push(n);
+    }
+    let correctIndex = Math.floor(Math.random()*boxCount);
+    nums[correctIndex] = correctNumber;
+
+    nums.forEach(n=>{
+      let div = document.createElement("div");
+      div.className="box";
+      div.style.background=randomColor();
+      div.innerText=n;
+      div.onclick = function(){
+        if(n===correctNumber){
+          document.getElementById("result").innerText="Correct! 🎉";
+          score += 10 * level;
+          level++;
+        }else{
+          document.getElementById("result").innerText="Wrong! ❌";
+          score = score>0?score-5:0;
+        }
+        updateLeaderboard("Player",score);
+        startGame();
+      }
+      boxesDiv.appendChild(div);
+    });
+  }
+}
+
+startGame();
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Prediction Game 🎯</title>
+<style>
+body { font-family: Arial; text-align:center; background:#f0f0f0; padding:15px; }
+h1 { color:#333; }
+#game { margin-top:20px; }
+.box { display:inline-block; width:80px; height:80px; margin:10px; border-radius:10px; cursor:pointer; line-height:80px; font-size:20px; color:#fff; transition:0.2s; }
+.box:hover { transform:scale(1.1); }
+#result { margin-top:15px; font-size:18px; font-weight:bold; }
+#score, #level { margin-top:10px; font-size:16px; color:#555; }
+button { margin-top:15px; padding:10px 20px; font-size:16px; cursor:pointer; }
+.affiliate { margin-top:15px; font-size:16px; }
+#leaderboard { margin-top:20px; font-size:14px; color:#333; }
+</style>
+</head>
+<body>
+
+<h1>Advanced Prediction Game 🎯</h1>
+<p>Guess the correct number or colour and earn points!</p>
+
+<!-- AdSense Placeholder -->
+<div style="margin:15px 0;">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXX"
+       data-ad-slot="YYYYYYYYYY"
+       data-ad-format="auto"></ins>
+</div>
+
+<div id="game"></div>
+<div id="result"></div>
+<div id="score">Score: 0</div>
+<div id="level">Level: 1</div>
+
+<!-- Affiliate Links -->
+<div class="affiliate">
+  <a href="AFFILIATE_LINK" target="_blank">Buy Gaming Accessories 🎮</a>
+</div>
+
+<button onclick="startGame()">Restart Game</button>
+
+<div id="leaderboard">
+  <strong>Leaderboard (Session):</strong>
+  <ul id="board"></ul>
+</div>
+
+<script>
+let score = 0;
+let level = 1;
+let sessionLeaderboard = [];
+let colors = ["red","green","blue","yellow","orange","purple"];
+
+function randomColor() { return colors[Math.floor(Math.random()*colors.length)]; }
+function randomNumber() { return Math.floor(Math.random()*9)+1; }
+
+function updateLeaderboard(name, points){
+  sessionLeaderboard.push({name:name, score:points});
+  sessionLeaderboard.sort((a,b)=>b.score-a.score);
+  let list = document.getElementById("board");
+  list.innerHTML = "";
+  sessionLeaderboard.slice(0,5).forEach(item=>{
+    let li = document.createElement("li");
+    li.innerText = item.name + ": " + item.score;
+    list.appendChild(li);
+  });
+}
+
+function startGame(){
+  document.getElementById("result").innerText="";
+  document.getElementById("score").innerText="Score: "+score;
+  document.getElementById("level").innerText="Level: "+level;
+  
+  let gameType = Math.random()<0.5 ? "color" : "number";
+  let boxesDiv = document.getElementById("game");
+  boxesDiv.innerHTML = "";
+
+  let boxCount = level + 2; // increase difficulty with level
+
+  if(gameType==="color"){
+    let correctColor = randomColor();
+    let boxColors = [];
+    while(boxColors.length<boxCount){
+      let c = randomColor();
+      if(!boxColors.includes(c)) boxColors.push(c);
+    }
+    let correctIndex = Math.floor(Math.random()*boxCount);
+    boxColors[correctIndex] = correctColor;
+
+    boxColors.forEach(c=>{
+      let div = document.createElement("div");
+      div.className="box";
+      div.style.background=c;
+      div.onclick = function(){
+        if(c===correctColor){
+          document.getElementById("result").innerText="Correct! 🎉";
+          score += 10 * level;
+          level++;
+        }else{
+          document.getElementById("result").innerText="Wrong! ❌";
+          score = score>0?score-5:0;
+        }
+        updateLeaderboard("Player",score);
+        startGame();
+      }
+      boxesDiv.appendChild(div);
+    });
+
+  } else {
+    let correctNumber = randomNumber();
+    let nums = [];
+    while(nums.length<boxCount){
+      let n = randomNumber();
+      if(!nums.includes(n)) nums.push(n);
+    }
+    let correctIndex = Math.floor(Math.random()*boxCount);
+    nums[correctIndex] = correctNumber;
+
+    nums.forEach(n=>{
+      let div = document.createElement("div");
+      div.className="box";
+      div.style.background=randomColor();
+      div.innerText=n;
+      div.onclick = function(){
+        if(n===correctNumber){
+          document.getElementById("result").innerText="Correct! 🎉";
+          score += 10 * level;
+          level++;
+        }else{
+          document.getElementById("result").innerText="Wrong! ❌";
+          score = score>0?score-5:0;
+        }
+        updateLeaderboard("Player",score);
+        startGame();
+      }
+      boxesDiv.appendChild(div);
+    });
+  }
+}
+
+startGame();
+</script>
+
+</body>
+</html>	
